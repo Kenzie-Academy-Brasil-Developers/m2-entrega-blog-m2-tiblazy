@@ -1,0 +1,13 @@
+@import "./reset.css";
+@import "./root.css";
+@import "./modal.css";
+@import "./post.css";
+@import "./form.css";
+
+main {
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}

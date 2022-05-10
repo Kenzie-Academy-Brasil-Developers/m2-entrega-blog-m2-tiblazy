@@ -1,0 +1,62 @@
+/* @import "./reset.css";
+@import "./root.css"; */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
+.cadastro,
+.login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 19px;
+}
+
+.cadastro__title,
+.login__title {
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+
+    color: #ffffff;
+}
+
+.login__title {
+    margin-bottom: 30px;
+}
+
+.form__input {
+    width: 246px;
+    height: 42px;
+    padding-left: 12px;
+
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: 300;
+    font-size: 13px;
+
+    border-radius: 4px;
+    color: #5f5c5c;
+    background: #f3f3f3;
+}
+
+.form__button,
+.form__button--login {
+    width: 132px;
+    height: 42px;
+
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+
+    border-radius: 5px;
+    color: #ffffff;
+    background: #edbc64;
+
+    cursor: pointer;
+}
+
+.form__button--login {
+    margin-top: 10px;
+}
