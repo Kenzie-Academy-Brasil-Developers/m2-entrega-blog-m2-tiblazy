@@ -48,7 +48,7 @@ class Modal {
         modalHeader.classList.add("modal__header", data);
         close.innerText = "X";
         close.classList.add("modal__header__close");
-        close.addEventListener("click", this.close);
+        close.addEventListener("click", this.btnClose);
 
         modalHeader.appendChild(close);
         return modalHeader;
@@ -63,10 +63,10 @@ class Modal {
         const mail = document.createElement("input");
         const photo = document.createElement("input");
         const password = document.createElement("input");
-        const login = document.createElement("button");
+        const btn = document.createElement("button");
 
-        modal.classList.add("modal");
         modal.id = "modal";
+        modal.classList.add("modal");
         form.classList.add("cadastro");
         title.innerText = "Cadastro";
         title.classList.add("cadastro__title")
@@ -78,10 +78,11 @@ class Modal {
         photo.classList.add("form__input");
         password.placeholder = "Password";
         password.classList.add("form__input");
-        login.innerText = "Cadastrar";
-        login.classList.add("form__button");
+        btn.innerText = "Cadastrar";
+        btn.classList.add("form__button");
+        btn.addEventListener("click", this.btnCadastrar);
 
-        form.append(title, name, mail, photo, password, login);
+        form.append(title, name, mail, photo, password, btn);
         modal.append(modalHeader, form);
         document.querySelector("main").appendChild(modal);
     }
@@ -93,8 +94,9 @@ class Modal {
         const title = document.createElement("h2");
         const mail = document.createElement("input");
         const password = document.createElement("input");
-        const login = document.createElement("button");
+        const btn = document.createElement("button");
 
+        modal.id = "modal";
         modal.classList.add("modal");
         form.classList.add("login");
         title.innerText = "Login";
@@ -103,19 +105,36 @@ class Modal {
         mail.classList.add("form__input");
         password.placeholder = "Senha";
         password.classList.add("form__input");
-        login.innerText = "Login";
-        login.classList.add("form__button", "form__button--login");
+        btn.innerText = "Login";
+        btn.classList.add("form__button", "form__button--login");
+        btn.addEventListener("click", this.btnLogar);
 
-        form.append(title, mail, password, login);
+        form.append(title, mail, password, btn);
         modal.append(modalHeader, form);
         document.querySelector("main").appendChild(modal);
     }
 
-    static close(event) {
+    static btnClose(event) {
         event.preventDefault();
 
         this.closest("#modal").remove();
     }
+
+    static btnCadastrar(event) {
+        event.preventDefault();
+
+        this.closest("#modal").childNodes[1].childNodes.forEach((element) => console.log(element));
+    }
+
+    static btnLogar(event) {
+        event.preventDefault();
+
+        console.log(this.closest("#modal").childNodes[1].childNodes[1].value);
+
+        // this.closest("#modal").childNodes[1].childNodes.forEach((element) => console.log(element.value));
+    }
+
+    // static getInputs = (form) => this.closest("#modal").childNodes[1].childNodes.forEach((element) => console.log(element));
 }
 
 export default Modal;
