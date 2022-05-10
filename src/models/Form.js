@@ -14,6 +14,7 @@ class Form {
         title.classList.add("cadastro__title")
         name.placeholder = "User";
         name.classList.add("form__input");
+        name.maxLength = 12;
         mail.placeholder = "Mail";
         mail.classList.add("form__input");
         photo.placeholder = "Link";

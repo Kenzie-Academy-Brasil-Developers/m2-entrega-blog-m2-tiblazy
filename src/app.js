@@ -9,6 +9,6 @@ import Post from "./models/Post.js"; // se tiver logado aparece
 // Form.register();
 // Form.login();
 
-Post.header();
-Post.new();
-Post.message();
+// Post.header();
+// Post.new();
+// Post.message();

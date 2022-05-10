@@ -1,6 +1,7 @@
 import data from "../javascript/teste.js";
 
 class Post {
+
     static header() {
         const divUser = document.createElement("div");
         const photo = document.createElement("img");
