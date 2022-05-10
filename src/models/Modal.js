@@ -48,6 +48,7 @@ class Modal {
         modalHeader.classList.add("modal__header", data);
         close.innerText = "X";
         close.classList.add("modal__header__close");
+        close.addEventListener("click", this.close);
 
         modalHeader.appendChild(close);
         return modalHeader;
@@ -65,6 +66,7 @@ class Modal {
         const login = document.createElement("button");
 
         modal.classList.add("modal");
+        modal.id = "modal";
         form.classList.add("cadastro");
         title.innerText = "Cadastro";
         title.classList.add("cadastro__title")
@@ -107,6 +109,12 @@ class Modal {
         form.append(title, mail, password, login);
         modal.append(modalHeader, form);
         document.querySelector("main").appendChild(modal);
+    }
+
+    static close(event) {
+        event.preventDefault();
+
+        this.closest("#modal").remove();
     }
 }
 
