@@ -1,3 +1,3 @@
-import Modal from "./models/Modal.js";
+import Form from "./models/Form.js";
 
-Modal.cadastrar();
+Form.container(Form.cadastrar());

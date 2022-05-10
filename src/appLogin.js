@@ -1,3 +1,3 @@
-import Modal from "./models/Modal.js";
+import Form from "./models/Form.js";
 
-Modal.login();
+Form.container(Form.login("form__header__close--login"));
