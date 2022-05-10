@@ -3,4 +3,69 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 
+.modal {
+    width: 600px;
+    height: 250px;
+    padding-bottom: 15px;
 
+    position: absolute;
+    background-color: var(--background);
+    border-radius: 4px;
+}
+
+.modal__header {
+    width: 100%;
+    height: 100px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-bottom: 1px solid white;
+}
+
+.header__title {
+    font-size: 32px;
+    font-family: "Montserrat";
+    font-weight: 700;
+
+    color: white;
+}
+
+.modal__container {
+    width: 100%;
+    height: 50px;
+    padding: 20px;
+}
+
+.container__content {
+    font-family: "Montserrat";
+    font-weight: 400;
+    font-size: 24px;
+
+    color: white;
+}
+
+.modal__footer {
+    width: 100%;
+    height: 100px;
+    padding: 0 25px;
+
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.footer__button {
+    padding: 7.5px 20px;
+
+    font-family: "Montserrat";
+    font-weight: 400;
+    font-size: 18px;
+
+    color: white;
+    background-color: var(--new-add);
+    border-radius: 4px;
+
+    cursor: pointer;
+}

@@ -1,4 +1,5 @@
 import data from "../javascript/teste.js";
+import Modal from "./Modal.js";
 
 class Post {
 
@@ -92,9 +93,10 @@ class Post {
         const newMessage = this.closest("article").childNodes[0].value; // via API newPost
 
         if (newMessage.length > 0) {
-            console.log("Nãao está vazia");
+            Modal.container("Post criado", newMessage);
+            this.closest("article").childNodes[0].value = "";
         } else {
-            alert("error")
+            Modal.container("Post sem conteúdo", "Tente novamente");
         }
     }
 

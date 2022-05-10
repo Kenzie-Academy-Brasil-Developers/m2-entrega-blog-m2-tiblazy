@@ -1,7 +1,21 @@
+import Controller from "./Controller.js";
+
 class Modal {
 
+    static container(title, message) {
+        const modal = document.createElement("article");
+        const modalHeader = this.header(title);
+        const modalContent = this.content(message);
+        const modalFooter = this.footer();
+
+        modal.classList.add("modal");
+
+        modal.append(modalHeader, modalContent, modalFooter);
+        document.querySelector("main").appendChild(modal);
+    }
+
     static header(title) {
-        const modalHeader = document.createElement("div");
+        const modalHeader = document.createElement("section");
         const modalTitle = document.createElement("h2");
 
         modalHeader.classList.add("modal__header");
@@ -11,41 +25,37 @@ class Modal {
         modalHeader.appendChild(modalTitle);
         return modalHeader;
     }
-    static content() {
-        const container = document.createElement("div");
+
+    static content(message) {
+        const container = document.createElement("section");
         const content = document.createElement("p");
 
         container.classList.add("modal__container");
         content.classList.add("container__content");
+        content.innerText = message;
 
         container.appendChild(content);
         return container;
     }
+
     static footer() {
-        const modalFooter = document.createElement("div");
+        const modalFooter = document.createElement("section");
         const modalBtn = document.createElement("button");
 
         modalFooter.classList.add("modal__footer");
-        modalBtn.classList.add("footer_button");
+        modalBtn.classList.add("footer__button");
+        modalBtn.innerText = "Confirmar";
         modalBtn.addEventListener("click", this.close);
 
         modalFooter.appendChild(modalBtn);
         return modalFooter;
     }
 
-    static TemplateError() {
-        const modal = document.createElement("div");
-        const modalHeader = this.header();
-        const modalContent = this.content();
-        const modalFooter = this.footer();
-
-        modal.append(modalHeader, modalContent, modalFooter);
-        document.querySelector("main").appendChild(modal);
-    }
-
-    static close(event){
+    static close(event) {
         event.preventDefault();
-
-        console.log(this);
+        Controller.unlockInput();
+        this.closest(".modal").remove();
     }
 }
+
+export default Modal;

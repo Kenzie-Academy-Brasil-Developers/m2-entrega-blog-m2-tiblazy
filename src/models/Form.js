@@ -1,4 +1,5 @@
 import Api from "./Api.js";
+import Controller from "./Controller.js";
 
 class Form {
 
@@ -100,6 +101,8 @@ class Form {
             password: pass
         }
 
+        Controller.checkInput(newUser, "Cadastro");
+
         this.closest("#form").childNodes.forEach((element) => element.value = "");
 
         // return await Api.cadastrarUsuario(newUser);
@@ -115,6 +118,8 @@ class Form {
             email: mail,
             password: pass
         }
+
+        Form.checkInput(user, "Login");
 
         this.closest("#form").childNodes.forEach((element) => element.value = "");
 
