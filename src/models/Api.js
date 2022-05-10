@@ -28,7 +28,14 @@ class Api {
             .then(response => response)
             .catch((error) => error);
 
-        console.log(response.token)
+        // const user = JSON.parse(localStorage.getItem(response))
+        const id = response.userId;
+        const token = response.token;
+
+        console.log(response)
+        console.log(id);
+        console.log(token);
+
         return response;
     }
 
