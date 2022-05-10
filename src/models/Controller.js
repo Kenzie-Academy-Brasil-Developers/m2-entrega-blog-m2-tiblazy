@@ -1,3 +1,4 @@
+import Api from "./Api.js";
 import Modal from "./Modal.js";
 
 class Controller {
@@ -13,11 +14,25 @@ class Controller {
         for (const undefined in data) {
             if (data[undefined] === "") {
                 Controller.lockInput();
-                return Modal.container(`Erro no ${content}`, "Algum campo não foi respondido ou está incorreto");
+                Modal.container(`Erro no ${content}`, "Algum campo não foi respondido ou está incorreto");
+                return false;
             }
         }
+        return Controller.userStep(data, content);
+    }
 
-        return Modal.container(`${content} Realizado`, `Seu ${content.toLowerCase()} foi concluido`);
+    static userStep(data, content) {
+        if (content === "Cadastro" && Api.cadastrarUsuario(data)) {
+            setTimeout(() => {
+                window.location.href = "../pages/login.html";
+            }, 5000);
+            return Modal.container(`${content} Realizado`, `Seu ${content.toLowerCase()} foi concluido`);
+        } else if (content === "Login" && Api.logarUsuario(data)) {
+            setTimeout(() => {
+                window.location.href = "../pages/blog.html";
+            }, 5000);
+            return Modal.container(`${content} Realizado`, `Seu ${content.toLowerCase()} foi concluido`);
+        }
     }
 }
 

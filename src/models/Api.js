@@ -13,7 +13,6 @@ class Api {
             .then(response => response)
             .catch((error) => error);
 
-        // const dados = await response.json();
         return response;
     }
 
@@ -29,7 +28,7 @@ class Api {
             .then(response => response)
             .catch((error) => error);
 
-        // const dados = await response.json();
+        console.log(response.token)
         return response;
     }
 
@@ -72,7 +71,7 @@ class Api {
         return response;
     }
 
-    static async deletarPost() { // ?776be59f-94cc-4313-a891-dc697259b72a correto ?
+    static async deletarPost() { // ?776be59f-94cc-4313-a891-dc697259b72a
         const respose = await fetch(`${this.ROOT}post/776be59f-94cc-4313-a891-dc697259b72a`, {
             method: "DELETE",
             headers: {

@@ -1,4 +1,5 @@
 import data from "../javascript/teste.js";
+import Api from "./Api.js";
 import Modal from "./Modal.js";
 
 class Post {
@@ -69,15 +70,10 @@ class Post {
         container.appendChild(message);
         divUser.append(user, container);
         divInteractions.append(edit, remove);
+        datePost.innerText = "22/22/2022";
+        datePost.classList.add("interactions__date");
 
-        if (screen.width > 767) {
-            datePost.innerText = "22/22/2022";
-            datePost.classList.add("interactions__date");
-            divInteractions.append(edit, remove, datePost);
-        } else {
-            divInteractions.append(edit, remove);
-        }
-
+        divInteractions.append(edit, remove, datePost);
         article.append(photo, divUser, divInteractions);
         document.querySelector("main").appendChild(article);
     }
@@ -95,6 +91,8 @@ class Post {
         if (newMessage.length > 0) {
             Modal.container("Post criado", newMessage);
             this.closest("article").childNodes[0].value = "";
+
+            // return Api.novoPost(newMessage);
         } else {
             Modal.container("Post sem conteúdo", "Tente novamente");
         }
@@ -103,11 +101,15 @@ class Post {
     static edit(event) {
         event.preventDefault();
         const editPost = this.closest("article").childNodes[1].childNodes[1].childNodes[0]; // via API update
+
+        // return Api.atualizarPost(editPost);
     }
 
     static remove(event) {
         event.preventDefault();
         const removePost = this.closest("article").remove() // via API delete
+
+        // return Api.deletarPost(removePost);
     }
 }
 

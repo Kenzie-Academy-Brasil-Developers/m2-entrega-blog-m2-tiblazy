@@ -101,11 +101,10 @@ class Form {
             password: pass
         }
 
-        Controller.checkInput(newUser, "Cadastro");
+        Controller.checkInput(newUser, "Cadastro")
 
         this.closest("#form").childNodes.forEach((element) => element.value = "");
-
-        // return await Api.cadastrarUsuario(newUser);
+        // return Api.cadastrarUsuario(newUser);
     }
 
     static btnLogar(event) {
@@ -119,10 +118,9 @@ class Form {
             password: pass
         }
 
-        Form.checkInput(user, "Login");
+        Controller.checkInput(user, "Login");
 
         this.closest("#form").childNodes.forEach((element) => element.value = "");
-
         // return Api.logarUsuario(user)
     }
 }
