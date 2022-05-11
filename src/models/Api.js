@@ -29,12 +29,12 @@ class Api {
             .catch((error) => error);
 
         // const user = JSON.parse(localStorage.getItem(response))
-        const id = response.userId;
-        const token = response.token;
+        // const id = response.userId;
+        // const token = response.token;
 
-        console.log(response)
-        console.log(id);
-        console.log(token);
+        // console.log(response)
+        // console.log(id);
+        // console.log(token);
 
         return response;
     }

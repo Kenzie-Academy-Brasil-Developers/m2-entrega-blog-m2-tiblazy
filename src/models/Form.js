@@ -3,9 +3,9 @@ import Controller from "./Controller.js";
 
 class Form {
 
-    static container(callback) {
+    static container(callback, link) {
         const background = document.createElement("div");
-        const formHeader = this.header();
+        const formHeader = this.header(link);
         const formContent = callback;
 
         background.append(formHeader, formContent);
@@ -14,16 +14,23 @@ class Form {
         document.querySelector("main").appendChild(background);
     }
 
-    static header(data) {
+    static header(link) {
         const formHeader = document.createElement("div");
+        const formAnchor = document.createElement("a");
         const formClose = document.createElement("button");
 
-        formHeader.classList.add("form__header", data);
-        formClose.innerText = "X";
-        formClose.classList.add("form__header__close");
+        formHeader.classList.add("form__header");
+        formHeader.innerHTML = 
+        `
+            <a href="${link}"> <button class="form__header__close">X</button></a>
+        `
+        // formAnchor.href = link;
+        // formClose.innerText = "X";
+        // formClose.classList.add("form__header__close");
         formClose.addEventListener("click", this.btnClose);
 
-        formHeader.appendChild(formClose);
+        // formAnchor.append(formClose)
+        // formHeader.appendChild(formAnchor);
         return formHeader;
     }
 

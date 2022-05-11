@@ -23,9 +23,9 @@ class Controller {
 
     static userStep(data, content) { // passando mesmo se valores não satisfazerem a API
         if (content === "Cadastro" && Api.cadastrarUsuario(data)) {
-            setTimeout(() => {
-                window.location.href = "../pages/login.html";
-            }, 5000);
+            // setTimeout(() => {
+            //     window.location.href = "../pages/login.html";
+            // }, 5000);
             return Modal.container(`${content} Realizado`, `Seu ${content.toLowerCase()} foi concluido`);
         } else if (content === "Login" && Api.logarUsuario(data)) {
             // setTimeout(() => {
