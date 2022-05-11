@@ -1,5 +1,4 @@
 import Api from "./Api.js";
-import Controller from "./Controller.js";
 
 class Form {
 
@@ -20,17 +19,12 @@ class Form {
         const formClose = document.createElement("button");
 
         formHeader.classList.add("form__header");
-        formHeader.innerHTML = 
-        `
+        formHeader.innerHTML =
+            `
             <a href="${link}"> <button class="form__header__close">X</button></a>
         `
-        // formAnchor.href = link;
-        // formClose.innerText = "X";
-        // formClose.classList.add("form__header__close");
         formClose.addEventListener("click", this.btnClose);
 
-        // formAnchor.append(formClose)
-        // formHeader.appendChild(formAnchor);
         return formHeader;
     }
 
@@ -108,10 +102,9 @@ class Form {
             password: pass
         }
 
-        Controller.checkInput(newUser, "Cadastro")
-
+        console.log(newUser)
         this.closest("#form").childNodes.forEach((element) => element.value = "");
-        // return Api.cadastrarUsuario(newUser);
+        Api.cadastrarUsuario(newUser);
     }
 
     static btnLogar(event) {
@@ -125,10 +118,8 @@ class Form {
             password: pass
         }
 
-        Controller.checkInput(user, "Login");
-
         this.closest("#form").childNodes.forEach((element) => element.value = "");
-        // return Api.logarUsuario(user)
+        Api.logarUsuario(user)
     }
 }
 

@@ -4,16 +4,16 @@ import Modal from "./Modal.js";
 
 class Post {
 
-    static header() {
+    static header(avatarUrl, username) {
         const divUser = document.createElement("div");
         const photo = document.createElement("img");
         const user = document.createElement("p");
         const logout = document.createElement("button");
 
         divUser.classList.add("header__user");
-        photo.src = "https://c4.wallpaperflare.com/wallpaper/400/646/349/digital-digital-art-artwork-3d-night-hd-wallpaper-preview.jpg";
+        photo.src = avatarUrl //"https://c4.wallpaperflare.com/wallpaper/400/646/349/digital-digital-art-artwork-3d-night-hd-wallpaper-preview.jpg";
         photo.classList.add("user__photo");
-        user.innerText = "Gatinho FOFO";
+        user.innerText = username //"Gatinho FOFO";
         user.classList.add("user__nick");
         logout.innerText = "Logout";
         logout.classList.add("header__logout");
@@ -40,7 +40,7 @@ class Post {
         document.querySelector("main").appendChild(article);
     }
 
-    static message() {
+    static message(avatarUrl, username, content) {
         const article = document.createElement("article");
         const photo = document.createElement("img");
         const divUser = document.createElement("div");
@@ -53,13 +53,13 @@ class Post {
         const datePost = document.createElement("span");
 
         article.classList.add("post");
-        photo.src = "https://c4.wallpaperflare.com/wallpaper/400/646/349/digital-digital-art-artwork-3d-night-hd-wallpaper-preview.jpg";
+        photo.src = avatarUrl //"https://c4.wallpaperflare.com/wallpaper/400/646/349/digital-digital-art-artwork-3d-night-hd-wallpaper-preview.jpg";
         photo.classList.add("post__photo");
-        user.innerText = "Gatinho FOFO";
+        user.innerText = username // "Gatinho FOFO";
         user.classList.add("post__user");
         divInteractions.id = "container" // trocar por id futuramente
         container.classList.add("post__container");
-        message.innerText = data[0];
+        message.innerText = content//data[0];
         message.classList.add("container__message");
         divInteractions.classList.add("post__interactions");
         edit.classList.add("fas", "fa-edit", "interactions__edit");
@@ -81,7 +81,9 @@ class Post {
     static logout(event) {
         event.preventDefault();
 
-        console.log(this);
+        localStorage.removeItem("Token");
+        localStorage.removeItem("Id");
+        window.location.href = "../pages/login.html";
     }
 
     static add(event) {
@@ -92,7 +94,7 @@ class Post {
             Modal.container("Post criado", newMessage);
             this.closest("article").childNodes[0].value = "";
 
-            // return Api.novoPost(newMessage);
+            Api.novoPost(newMessage);
         } else {
             Modal.container("Post sem conteúdo", "Tente novamente");
         }
