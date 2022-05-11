@@ -1,72 +1,103 @@
 import Modal from "./Modal.js";
 import Post from "./Post.js";
+import User from "./User.js"
 
 class Api {
     static ROOT = "https://api-blog-m2.herokuapp.com/";
+    static userInfo = {
+        token: "",
+        id: ""
+    };
 
     static async cadastrarUsuario(usuario) {
         const URL = `${this.ROOT}user/register`;
 
         const response = await fetch(URL, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(usuario),
-            })
-            .then((response) => response.json())
-            .then((response) => response)
-            .catch((error) => error);
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(usuario),
+        })
+        const data = await response.json();
 
-        return response;
+        if (data.status !== "error") {
+            window.location.href = "../pages/login.html";
+        }
+
+        Modal.container(`Erro no cadastro`, "Algum campo não foi respondido ou está incorreto");
+        return data;
     }
 
     static async logarUsuario(usuario) {
         const URL = `${this.ROOT}user/login`;
 
         const response = await fetch(URL, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(usuario),
-            })
-            .then((response) => response.json())
-            .then((response) => response)
-            .catch((error) => console.error(error));
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(usuario),
+        })
+        const data = await response.json();
 
-        if (response.token) {
+        if (data.token) {
+            Api.userInfo.token = data.token
+            Api.userInfo.id = data.userId
             localStorage.setItem("Token", response.token);
             localStorage.setItem("Id", response.userId);
-            console.log(response.userId);
 
             Modal.container(`Login Realizado`, `Seu login foi concluido`);
+            const usuario = await Api.listarUsuario();
 
+            console.log(usuario.avatarUrl)
+            console.log(usuario.username)
+
+            Post.header(usuario.avatarUrl, usuario.username);
             // window.location.href = "../pages/blog.html";
-            // Post.header(response.avatarUrl, response.username);
         } else {
             Modal.container(`Erro no login`, "Algum campo não foi respondido ou está incorreto");
         }
-
         return response;
     }
 
+    static async listarUsuario() {
+        const response = await fetch(`${Api.ROOT}user/${Api.userInfo.id}`, {
+            method: "GET",
+            headers: {
+                "authorization": `Bearer ${Api.userInfo.token}`
+            },
+        })
+        const data = await response.json();
+        // const {
+        //     avatarUrl,
+        //     username
+        // } = await data
+
+        // console.log(username);
+        // console.log(avatarUrl);
+        // Post.header(avatarUrl, username);
+
+        return data;
+    }
+
     static async novoPost(content) {
-        const URL = `${this.ROOT}post/${localStorage.getItem("Id")}`; // eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijg2ZTFhNjU5LWZjNDktNGM1ZS1iMmU0LWVlMjg2ZTRjOTAxZiIsImlhdCI6MTY0NzA5NzYyOSwiZXhwIjoxNjQ3MTg0MDI5fQ.qNEGcvnVZy9lvyYDbCzUMxdj-vi4nEsLHHLnsS3TTQg
+        const URL = `${this.ROOT}post/${Api.userInfo.id}`;
+
         const response = await fetch(URL, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "authorization": `Bearer ${localStorage.getItem("Token")}`,
+                "authorization": `Bearer ${Api.userInfo.token}`,
             },
             body: JSON.stringify(content),
         })
 
-        console.log(await response.json());
+        // console.log(await response.json());
         const data = await response.json();
         // console.log(data);
 
-        return Post.message(null, null, data);
+        return Post.message("1", undefined, data);
     }
 
     static async paginarPosts(id) {
@@ -75,7 +106,7 @@ class Api {
         const response = await fetch(URL, {
                 method: "GET",
                 headers: {
-                    "authorization": `Bearer ${localStorage.getItem("Token")}`,
+                    "authorization": `Bearer ${Api.userInfo.token}`,
                 },
                 body: JSON.stringify(id),
             })
@@ -87,14 +118,13 @@ class Api {
     }
 
     static async atualizarPost(updateContent) {
-        const URL = `${this.ROOT}post/${localStorage.getItem("Id")}`;
-        // const URL = `${this.ROOT}post/9cc3c5e3-83df-4201-b1f3-87efae81fa96`;
+        const URL = `${this.ROOT}post/${Api.userInfo.id}`;
 
         const response = await fetch(URL, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
-                "authorization": `Bearer ${localStorage.getItem("Token")}`,
+                "authorization": `Bearer ${Api.userInfo.token}`,
             },
             body: JSON.stringify(updateContent)
         })
@@ -103,11 +133,11 @@ class Api {
     }
 
     static async deletarPost() {
-        const URL = `${this.ROOT}post/${localStorage.getItem("Id")}`;
+        const URL = `${this.ROOT}post/${Api.userInfo.id}`;
         const respose = await fetch(URL, {
             method: "DELETE",
             headers: {
-                "authorization": `Bearer ${localStorage.getItem("Token")}`,
+                "authorization": `Bearer ${Api.userInfo.token}`,
             },
         })
     }

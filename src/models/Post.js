@@ -1,25 +1,23 @@
-import data from "../javascript/teste.js";
 import Api from "./Api.js";
 import Modal from "./Modal.js";
 
 class Post {
-
-    static header(avatarUrl, username) {
+    static header(avatar, username) {
         const divUser = document.createElement("div");
         const photo = document.createElement("img");
         const user = document.createElement("p");
         const logout = document.createElement("button");
 
         divUser.classList.add("header__user");
-        photo.src = avatarUrl //"https://c4.wallpaperflare.com/wallpaper/400/646/349/digital-digital-art-artwork-3d-night-hd-wallpaper-preview.jpg";
+        photo.src = avatar //"https://prensadebabel.com.br/wp-content/uploads/2020/07/gato-fofo.jpg";
         photo.classList.add("user__photo");
-        user.innerText = username //"Gatinho FOFO";
+        user.innerText = username;
         user.classList.add("user__nick");
         logout.innerText = "Logout";
         logout.classList.add("header__logout");
         logout.addEventListener("click", this.logout);
 
-        divUser.append(photo, user);
+        divUser.appendChild(photo, user);
         document.getElementById("header").append(divUser, logout);
     }
 
@@ -40,7 +38,7 @@ class Post {
         document.querySelector("main").appendChild(article);
     }
 
-    static message(avatarUrl, username, content) {
+    static message() {
         const article = document.createElement("article");
         const photo = document.createElement("img");
         const divUser = document.createElement("div");
@@ -53,13 +51,13 @@ class Post {
         const datePost = document.createElement("span");
 
         article.classList.add("post");
-        photo.src = avatarUrl //"https://c4.wallpaperflare.com/wallpaper/400/646/349/digital-digital-art-artwork-3d-night-hd-wallpaper-preview.jpg";
+        photo.src = "https://prensadebabel.com.br/wp-content/uploads/2020/07/gato-fofo.jpg";
         photo.classList.add("post__photo");
-        user.innerText = username // "Gatinho FOFO";
+        user.innerText = "Usuário";
         user.classList.add("post__user");
-        divInteractions.id = "container" // trocar por id futuramente
+        divInteractions.id = "container";
         container.classList.add("post__container");
-        message.innerText = content//data[0];
+        message.innerText = "content //data[0]";
         message.classList.add("container__message");
         divInteractions.classList.add("post__interactions");
         edit.classList.add("fas", "fa-edit", "interactions__edit");
@@ -89,6 +87,10 @@ class Post {
     static add(event) {
         event.preventDefault();
         const newMessage = this.closest("article").childNodes[0].value; // via API newPost
+        const message = {
+            content: newMessage
+        }
+        console.log(message)
 
         if (newMessage.length > 0) {
             Modal.container("Post criado", newMessage);
