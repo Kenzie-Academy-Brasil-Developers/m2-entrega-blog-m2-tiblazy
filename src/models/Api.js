@@ -108,12 +108,14 @@ class Api {
             body: JSON.stringify(updateContent)
         })
 
+        // window.location = "../pages/editPost.html";
+
         return response;
     }
 
-    static async deletarPost(id) {
+    static async deletarPost(deleteContent) {
         
-        const URL = `${this.ROOT}post/${id}`;
+        const URL = `${this.ROOT}post/${deleteContent}`;
         const respose = await fetch(URL, {
             method: "DELETE",
             headers: {

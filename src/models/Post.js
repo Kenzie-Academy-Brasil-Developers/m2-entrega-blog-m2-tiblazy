@@ -117,11 +117,11 @@ class Post {
         }
     }
 
-    static edit(event) {
+    static edit(event) {// ??
         event.preventDefault();
-        const editPost = this.closest("article").childNodes[1].childNodes[1].childNodes[0]; // via API update
+        const editPost = this.closest("article").childNodes[1].childNodes[1].childNodes[0];
 
-        // return Api.atualizarPost(editPost);
+        // Api.atualizarPost(editPost);
     }
 
     static async remove(event) {
