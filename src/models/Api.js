@@ -1,13 +1,8 @@
 import Modal from "./Modal.js";
 import Post from "./Post.js";
-import User from "./User.js"
 
 class Api {
     static ROOT = "https://api-blog-m2.herokuapp.com/";
-    static userInfo = {
-        token: "",
-        id: ""
-    };
 
     static async cadastrarUsuario(usuario) {
         const URL = `${this.ROOT}user/register`;
@@ -23,9 +18,10 @@ class Api {
 
         if (data.status !== "error") {
             window.location.href = "../pages/login.html";
+        } else {
+            Modal.container(`Erro no cadastro`, "Algum campo não foi respondido ou está incorreto");
         }
 
-        Modal.container(`Erro no cadastro`, "Algum campo não foi respondido ou está incorreto");
         return data;
     }
 
@@ -42,58 +38,53 @@ class Api {
         const data = await response.json();
 
         if (data.token) {
-            Api.userInfo.token = data.token
-            Api.userInfo.id = data.userId
-            localStorage.setItem("Token", response.token);
-            localStorage.setItem("Id", response.userId);
+            localStorage.setItem("Token", data.token);
+            localStorage.setItem("Id", data.userId);
 
             Modal.container(`Login Realizado`, `Seu login foi concluido`);
             const usuario = await Api.listarUsuario();
 
-            console.log(usuario.avatarUrl)
-            console.log(usuario.username)
-
-            Post.header(usuario.avatarUrl, usuario.username);
+            // Post.header(usuario.avatarUrl, usuario.username);
             // window.location.href = "../pages/blog.html";
         } else {
             Modal.container(`Erro no login`, "Algum campo não foi respondido ou está incorreto");
         }
+
         return response;
     }
 
     static async listarUsuario() {
-        const response = await fetch(`${Api.ROOT}user/${Api.userInfo.id}`, {
+        const response = await fetch(`${Api.ROOT}user/${localStorage.getItem("Id")}`, {
             method: "GET",
             headers: {
-                "authorization": `Bearer ${Api.userInfo.token}`
+                "Authorization": `Bearer ${localStorage.getItem("Token")}`
             },
         })
         const data = await response.json();
-        // const {
-        //     avatarUrl,
-        //     username
-        // } = await data
+        const {
+            avatarUrl,
+            username
+        } = await data
 
-        // console.log(username);
-        // console.log(avatarUrl);
-        // Post.header(avatarUrl, username);
+        console.log(username);
+        console.log(avatarUrl);
+        Post.header(avatarUrl, username);
 
         return data;
     }
 
     static async novoPost(content) {
-        const URL = `${this.ROOT}post/${Api.userInfo.id}`;
+        const URL = `${this.ROOT}post`;
 
         const response = await fetch(URL, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "authorization": `Bearer ${Api.userInfo.token}`,
+                "Authorization": `Bearer ${localStorage.getItem("Token")}`,
             },
             body: JSON.stringify(content),
         })
 
-        // console.log(await response.json());
         const data = await response.json();
         // console.log(data);
 
@@ -106,7 +97,7 @@ class Api {
         const response = await fetch(URL, {
                 method: "GET",
                 headers: {
-                    "authorization": `Bearer ${Api.userInfo.token}`,
+                    "Authorization": `Bearer ${localStorage.getItem("Token")}`,
                 },
                 body: JSON.stringify(id),
             })
@@ -118,13 +109,13 @@ class Api {
     }
 
     static async atualizarPost(updateContent) {
-        const URL = `${this.ROOT}post/${Api.userInfo.id}`;
+        const URL = `${this.ROOT}post/${localStorage.getItem("Id")}`;
 
         const response = await fetch(URL, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
-                "authorization": `Bearer ${Api.userInfo.token}`,
+                "Authorization": `Bearer ${localStorage.getItem("Token")}`,
             },
             body: JSON.stringify(updateContent)
         })
@@ -133,11 +124,12 @@ class Api {
     }
 
     static async deletarPost() {
-        const URL = `${this.ROOT}post/${Api.userInfo.id}`;
+        
+        const URL = `${this.ROOT}post/${localStorage.getItem("Id")}`;
         const respose = await fetch(URL, {
             method: "DELETE",
             headers: {
-                "authorization": `Bearer ${Api.userInfo.token}`,
+                "Authorization": `Bearer ${localStorage.getItem("Token")}`,
             },
         })
     }

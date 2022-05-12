@@ -15,7 +15,6 @@ class Form {
 
     static header(link) {
         const formHeader = document.createElement("div");
-        const formAnchor = document.createElement("a");
         const formClose = document.createElement("button");
 
         formHeader.classList.add("form__header");
@@ -102,9 +101,9 @@ class Form {
             password: pass
         }
 
-        console.log(newUser)
-        this.closest("#form").childNodes.forEach((element) => element.value = "");
         Api.cadastrarUsuario(newUser);
+
+        // this.closest("#form").childNodes.forEach((element) => element.value = "");
     }
 
     static btnLogar(event) {
@@ -118,8 +117,9 @@ class Form {
             password: pass
         }
 
-        this.closest("#form").childNodes.forEach((element) => element.value = "");
         Api.logarUsuario(user)
+
+        this.closest("#form").childNodes.forEach((element) => element.value = "");
     }
 }
 

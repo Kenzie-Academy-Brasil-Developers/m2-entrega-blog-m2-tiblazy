@@ -18,7 +18,7 @@ class Post {
         logout.addEventListener("click", this.logout);
 
         divUser.appendChild(photo, user);
-        document.getElementById("header").append(divUser, logout);
+        document.querySelector("header").append(divUser, logout);
     }
 
     static new() {
