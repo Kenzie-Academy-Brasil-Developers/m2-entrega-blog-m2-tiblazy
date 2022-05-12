@@ -81,18 +81,20 @@ class Api {
     }
 
     static async paginarPosts(page = Api.POST) {
-
+        const variavel = localStorage.getItem("Token");
+        // console.log(variavel)
         const response = await fetch(page, {
                 method: "GET",
                 headers: {
-                    "Authorization": `Bearer ${localStorage.getItem("Token")}`,
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${variavel}`,
                 },
-                body: JSON.stringify(),
             })
             .then((response) => response.json())
             .then(response => response)
             .catch((error) => error);
 
+        // console.log(response)
         return response;
     }
 
@@ -114,7 +116,7 @@ class Api {
     }
 
     static async deletarPost(deleteContent) {
-        
+
         const URL = `${this.ROOT}post/${deleteContent}`;
         const respose = await fetch(URL, {
             method: "DELETE",

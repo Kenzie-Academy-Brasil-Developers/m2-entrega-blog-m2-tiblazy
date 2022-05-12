@@ -10,7 +10,8 @@ const {
 
 Post.header(avatarUrl, username);
 Post.new();
-Pages.posts();
+console.log(localStorage.getItem("Token"));
+await Pages.posts();
 
 // listPost.data.forEach(({
 //     id,

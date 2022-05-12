@@ -21,23 +21,16 @@ class Pages {
 
         for (let index = initialPage; index <= lastPage; index++) {
             const page = document.createElement("button");
+            const link = document.createElement("a");
+            const lista = document.createElement("li");
 
+            link.href = `${Api.POST}page=${index}`;
             page.innerText = index;
             page.classList.add("page");
 
-            page.addEventListener("click", async () => {
-                const response = await fetch(`${Api.POST}page=${index}`, {
-                    method: "GET",
-                    headers: {
-                        "Authorization": `Bearer ${localStorage.getItem("Token")}`,
-                    },
-                    body: JSON.stringify(),
-                })
-                console.log(localStorage.getItem("Token"))
-                window.location = `${Api.POST}page=${index}`;
-            });
-
-            document.getElementById("pages").appendChild(page);
+            link.appendChild(page);
+            lista.appendChild(link);
+            document.getElementById("pages").appendChild(lista);
         }
     }
 }
