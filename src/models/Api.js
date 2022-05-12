@@ -3,6 +3,7 @@ import Post from "./Post.js";
 
 class Api {
     static ROOT = "https://api-blog-m2.herokuapp.com/";
+    static POST = `https://api-blog-m2.herokuapp.com/post?`;
 
     static async cadastrarUsuario(usuario) {
         const URL = `${this.ROOT}user/register`;
@@ -42,10 +43,8 @@ class Api {
             localStorage.setItem("Id", data.userId);
 
             Modal.container(`Login Realizado`, `Seu login foi concluido`);
-            const usuario = await Api.listarUsuario();
 
-            // Post.header(usuario.avatarUrl, usuario.username);
-            // window.location.href = "../pages/blog.html";
+            window.location = "../pages/blog.html";
         } else {
             Modal.container(`Erro no login`, "Algum campo não foi respondido ou está incorreto");
         }
@@ -61,14 +60,6 @@ class Api {
             },
         })
         const data = await response.json();
-        const {
-            avatarUrl,
-            username
-        } = await data
-
-        console.log(username);
-        console.log(avatarUrl);
-        Post.header(avatarUrl, username);
 
         return data;
     }
@@ -84,22 +75,19 @@ class Api {
             },
             body: JSON.stringify(content),
         })
-
         const data = await response.json();
-        // console.log(data);
 
-        return Post.message("1", undefined, data);
+        return data;
     }
 
-    static async paginarPosts(id) {
-        const URL = `${this.ROOT}post?page=${id}`;
+    static async paginarPosts(page = Api.POST) {
 
-        const response = await fetch(URL, {
+        const response = await fetch(page, {
                 method: "GET",
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem("Token")}`,
                 },
-                body: JSON.stringify(id),
+                body: JSON.stringify(),
             })
             .then((response) => response.json())
             .then(response => response)
@@ -123,9 +111,9 @@ class Api {
         return response;
     }
 
-    static async deletarPost() {
+    static async deletarPost(id) {
         
-        const URL = `${this.ROOT}post/${localStorage.getItem("Id")}`;
+        const URL = `${this.ROOT}post/${id}`;
         const respose = await fetch(URL, {
             method: "DELETE",
             headers: {

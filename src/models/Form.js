@@ -103,7 +103,7 @@ class Form {
 
         Api.cadastrarUsuario(newUser);
 
-        // this.closest("#form").childNodes.forEach((element) => element.value = "");
+        this.closest("#form").childNodes.forEach((element) => element.value = "");
     }
 
     static btnLogar(event) {

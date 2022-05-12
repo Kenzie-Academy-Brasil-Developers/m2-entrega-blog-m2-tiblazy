@@ -208,3 +208,29 @@ main {
 
     color: #989898;
 }
+
+footer{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+#pages {
+    width: 600px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0 5px;
+}
+
+.page {
+    width: 30px;
+    height: 30px;
+    margin-top: 10px;
+
+    color: white;
+    background-color: #6495ed;
+
+    border-radius: 4px;
+    cursor: pointer;
+}
