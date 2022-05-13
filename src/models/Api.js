@@ -1,5 +1,8 @@
 import Modal from "./Modal.js";
-import Post from "./Post.js";
+
+const id = localStorage.getItem("Id");
+const idPost = localStorage.getItem("idPost");
+const token = localStorage.getItem("Token");
 
 class Api {
     static ROOT = "https://api-blog-m2.herokuapp.com/";
@@ -53,10 +56,10 @@ class Api {
     }
 
     static async listarUsuario() {
-        const response = await fetch(`${Api.ROOT}user/${localStorage.getItem("Id")}`, {
+        const response = await fetch(`${Api.ROOT}user/${id}`, {
             method: "GET",
             headers: {
-                "Authorization": `Bearer ${localStorage.getItem("Token")}`
+                "Authorization": `Bearer ${token}`
             },
         })
         const data = await response.json();
@@ -71,7 +74,7 @@ class Api {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Bearer ${localStorage.getItem("Token")}`,
+                "Authorization": `Bearer ${token}`,
             },
             body: JSON.stringify(content),
         })
@@ -81,8 +84,8 @@ class Api {
     }
 
     static async paginarPosts(page = Api.POST) {
-        const variavel = localStorage.getItem("Token");
-        // console.log(variavel)
+        const variavel = token;
+
         const response = await fetch(page, {
                 method: "GET",
                 headers: {
@@ -94,23 +97,20 @@ class Api {
             .then(response => response)
             .catch((error) => error);
 
-        // console.log(response)
         return response;
     }
 
     static async atualizarPost(updateContent) {
-        const URL = `${this.ROOT}post/${localStorage.getItem("Id")}`;
+        const URL = `${this.ROOT}post/${idPost}`;
 
         const response = await fetch(URL, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Bearer ${localStorage.getItem("Token")}`,
+                "Authorization": `Bearer ${token}`,
             },
             body: JSON.stringify(updateContent)
         })
-
-        // window.location = "../pages/editPost.html";
 
         return response;
     }
@@ -121,7 +121,7 @@ class Api {
         const respose = await fetch(URL, {
             method: "DELETE",
             headers: {
-                "Authorization": `Bearer ${localStorage.getItem("Token")}`,
+                "Authorization": `Bearer ${token}`,
             },
         })
     }

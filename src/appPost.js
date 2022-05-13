@@ -10,14 +10,5 @@ const {
 
 Post.header(avatarUrl, username);
 Post.new();
-console.log(localStorage.getItem("Token"));
 await Pages.posts();
-
-// listPost.data.forEach(({
-//     id,
-//     post,
-//     createdAt,
-//     updatedAt,
-//     owner
-// }) => console.log(new Pages(id, post, createdAt, updatedAt, owner.avatarUrl, owner.username)));
 Pages.pages();

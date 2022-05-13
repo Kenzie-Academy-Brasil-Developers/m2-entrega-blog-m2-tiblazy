@@ -1,7 +1,6 @@
 import Controller from "./Controller.js";
 
 class Modal {
-
     static container(title, message) {
         const modal = document.createElement("article");
         const modalHeader = this.header(title);

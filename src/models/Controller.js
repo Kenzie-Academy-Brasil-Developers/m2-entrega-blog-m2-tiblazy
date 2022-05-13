@@ -1,4 +1,3 @@
-import Api from "./Api.js";
 import Modal from "./Modal.js";
 
 class Controller {
@@ -18,22 +17,7 @@ class Controller {
                 return false;
             }
         }
-        // return Controller.userStep(data, content);
     }
-
-    // static userStep(data, content) { // passando mesmo se valores não satisfazerem a API
-    //     if (content === "Cadastro" && Api.cadastrarUsuario(data)) {
-    //         // setTimeout(() => {
-    //         //     window.location.href = "../pages/login.html";
-    //         // }, 5000);
-    //         return Modal.container(`${content} Realizado`, `Seu ${content.toLowerCase()} foi concluido`);
-    //     } else if (content === "Login" && Api.logarUsuario(data)) {
-    //         // setTimeout(() => {
-    //         //     window.location.href = "../pages/blog.html";
-    //         // }, 5000);
-            // return Modal.container(`${content} Realizado`, `Seu ${content.toLowerCase()} foi concluido`);
-    //     }
-    // }
 }
 
 export default Controller;

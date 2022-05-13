@@ -3,8 +3,8 @@ import Post from "./Post.js";
 
 class Pages {
 
-    static async posts() {
-        const listPost = await Api.paginarPosts();
+    static async posts(link = "https://api-blog-m2.herokuapp.com/post?") {
+        const listPost = await Api.paginarPosts(link);
 
         listPost.data.forEach(({
             id,
@@ -27,11 +27,20 @@ class Pages {
             link.href = `${Api.POST}page=${index}`;
             page.innerText = index;
             page.classList.add("page");
+            page.addEventListener("click", Pages.link);
 
             link.appendChild(page);
             lista.appendChild(link);
             document.getElementById("pages").appendChild(lista);
         }
+    }
+
+    static link(event) {
+        event.preventDefault();
+        const listaPosts = document.querySelectorAll("#post");
+        listaPosts.forEach(ele => ele.remove());
+
+        Pages.posts(this.closest("a").href);
     }
 }
 

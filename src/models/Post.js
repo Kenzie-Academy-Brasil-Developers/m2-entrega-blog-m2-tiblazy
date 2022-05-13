@@ -1,5 +1,6 @@
 import Api from "./Api.js";
 import Modal from "./Modal.js";
+import Edit from "./Edit.js";
 
 class Post {
     static header(avatarUrl, username) {
@@ -22,11 +23,10 @@ class Post {
     }
 
     static new() {
-        const article = document.createElement("article");
+        const article = document.getElementById("new");
         const message = document.createElement("textarea");
         const add = document.createElement("button");
 
-        article.classList.add("new");
         message.placeholder = "Comece seu post incrível";
         message.classList.add("new__message");
         message.rows = 6;
@@ -35,7 +35,6 @@ class Post {
         add.addEventListener("click", this.add);
 
         article.append(message, add);
-        document.querySelector("main").appendChild(article);
     }
 
     static message(avatarUrl, username, message, idMessage, idUser, createdAt) {
@@ -50,6 +49,7 @@ class Post {
         const remove = document.createElement('button');
         const datePost = document.createElement("span");
 
+        article.id = "post"
         article.classList.add("post");
         photo.src = avatarUrl;
         photo.classList.add("post__photo");
@@ -89,7 +89,7 @@ class Post {
 
         divInteractions.append(edit, remove, datePost);
         article.append(photo, divUser, divInteractions);
-        document.querySelector("main").appendChild(article);
+        document.getElementById("listPost").appendChild(article);
     }
 
     static logout(event) {
@@ -112,16 +112,18 @@ class Post {
             this.closest("article").childNodes[0].value = "";
 
             Api.novoPost(message);
+            window.location.reload();
         } else {
             Modal.container("Post sem conteúdo", "Tente novamente");
         }
     }
 
-    static edit(event) {// ??
+    static edit(event) {
         event.preventDefault();
-        const editPost = this.closest("article").childNodes[1].childNodes[1].childNodes[0];
+        localStorage.setItem("idPost", this.closest("article > #container").childNodes[1].id);
+        // const idPost = this.closest("article > #container").childNodes[1].id;
 
-        // Api.atualizarPost(editPost);
+        Edit.edit();
     }
 
     static async remove(event) {
@@ -129,6 +131,7 @@ class Post {
         const removePost = this.closest("article > #container").childNodes[1].id;
 
         await Api.deletarPost(removePost);
+        window.location.reload();
     }
 }
 
